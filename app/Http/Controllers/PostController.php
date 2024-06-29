@@ -31,6 +31,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        return Post::create($request->all());
     }
 
     /**
@@ -41,6 +42,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        return $post
     }
 
     /**
@@ -52,6 +54,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $post->update($request->all());
+        return $post;
     }
 
     /**
@@ -62,5 +66,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        return $post->delete();
     }
 }
