@@ -31,6 +31,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            $request->title => 'required',
+            $request->slug => 'required',
+            $request->image => 'required',
+            $request->content => 'required',
+            $request->published_at => 'required'
+        ]);
+
+         Post::create($request->all());
+
+         return response()->json([
+            "message" => "Post Created successfully!";
+        ]);
     }
 
     /**
@@ -41,6 +54,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        return response()->json([
+            "message" => "success!",
+        "post" => $post,
+        ]);
     }
 
     /**
@@ -52,6 +69,11 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $post->update($request->all());
+        return response()->json([
+            "message" => "Post updated successfully!",
+            "post" => $post
+        ]);
     }
 
     /**
@@ -62,5 +84,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->delete();
+        return response()->json([
+            "message" => "Post deleted successfully!",
+        ]);
+
     }
 }
